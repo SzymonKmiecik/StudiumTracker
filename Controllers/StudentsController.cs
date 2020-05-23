@@ -13,9 +13,9 @@ namespace StudiumTracker.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
-        private SqlDbManipulation<Student> _repository;
+        private readonly IDbManipulation<Student> _repository;
 
-        public StudentsController(SqlDbManipulation<Student> repository)
+        public StudentsController(IDbManipulation<Student> repository)
         {
             _repository = repository;
         }
@@ -27,5 +27,25 @@ namespace StudiumTracker.Controllers
 
             return Ok(studentItems);
         }
+
+
+        [HttpGet("{id}")]
+        public ActionResult<Student> GetStudentById(int id)
+        {
+            var studentItem = _repository.GetById(id);
+            if (studentItem != null)
+                return Ok(studentItem);
+            return NotFound();
+        }
+
+        //[HttpPost]
+        //public ActionResult<Student> CreateStudent(Student student)
+        //{
+        //    _repository.Create(student);
+        //    _repository.SaveChanges();
+
+        //    //return CreatedAtRoute(nameof(GetStudentById), new { Id = student.Id }, student);
+        //    return Ok();
+        //}
     }
 }

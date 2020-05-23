@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudiumTracker.Models;
 
 namespace StudiumTracker.Data
 {
     public interface IDbManipulation<T>
-        where T : class
+        where T : class, IModelData
     {
         bool SaveChanges();
 
