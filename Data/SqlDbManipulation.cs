@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -43,7 +44,12 @@ namespace StudiumTracker.Data
 
         public void Update(T record)
         {
-            //nothing
+            //var entry = _context.Entry(record);
+            //entry.State = EntityState.Unchanged;
+            //foreach (var prop in properties)
+            //{
+            //    entry.Property(prop).IsModified = true;
+            //}
         }
 
         public void Delete(T record)

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudiumTracker.Data;
+using StudiumTracker.Dtos;
 using StudiumTracker.Models;
 
 namespace StudiumTracker.Controllers
@@ -14,38 +16,77 @@ namespace StudiumTracker.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IDbManipulation<Student> _repository;
+        private IMapper _mapper;
 
-        public StudentsController(IDbManipulation<Student> repository)
+        public StudentsController(IDbManipulation<Student> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Student>> GetAllStudents()
+        public ActionResult<IEnumerable<StudentDto>> GetAllStudents()
         {
             var studentItems = _repository.GetAll();
 
-            return Ok(studentItems);
+            return Ok(_mapper.Map<IEnumerable<StudentDto>>(studentItems));
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetStudentById")]
         public ActionResult<Student> GetStudentById(int id)
         {
             var studentItem = _repository.GetById(id);
             if (studentItem != null)
-                return Ok(studentItem);
+                return Ok(_mapper.Map<StudentDto>(studentItem));
             return NotFound();
         }
 
-        //[HttpPost]
-        //public ActionResult<Student> CreateStudent(Student student)
-        //{
-        //    _repository.Create(student);
-        //    _repository.SaveChanges();
+        [HttpPost]
+        public ActionResult<StudentDto> CreateStudent(StudentDto studentDto)
+        {
+            var studentModel = _mapper.Map<Student>(studentDto);
+            Random rand = new Random();
+            studentModel.CardId = rand.Next(100000, 1000000);
 
-        //    //return CreatedAtRoute(nameof(GetStudentById), new { Id = student.Id }, student);
-        //    return Ok();
-        //}
+            //TODO Identity cardID
+
+            _repository.Create(studentModel);
+            _repository.SaveChanges();
+
+            var studentCreatedDto = _mapper.Map<StudentDto>(studentModel);
+
+            return CreatedAtRoute(nameof(GetStudentById), new { Id = studentModel.Id }, studentCreatedDto);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UptadeStudent(int id, StudentDto studentDto)
+        {
+            var studentModelFromRepo = _repository.GetById(id);
+            if (studentModelFromRepo == null)
+                return NotFound();
+
+            _mapper.Map(studentDto, studentModelFromRepo);
+            studentModelFromRepo.Id = id;
+            _repository.Update(studentModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteStudent(int id)
+        {
+            var studentModelFromRepo = _repository.GetById(id);
+            if (studentModelFromRepo == null)
+                return NotFound();
+
+            _repository.Delete(studentModelFromRepo);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

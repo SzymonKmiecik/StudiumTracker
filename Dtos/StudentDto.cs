@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using StudiumTracker.Models;
 
-namespace StudiumTracker.Models
+namespace StudiumTracker.Dtos
 {
-    public class Student : IModelData
+
+    public class StudentDto
     {
-        [Key]
+
         public int Id { get; set; }
-        
+
         [Required]
         [MaxLength(250)]
         public string Forename { get; set; }
@@ -22,9 +24,6 @@ namespace StudiumTracker.Models
         [Required]
         [MaxLength(25)]
         public string PhoneNumber { get; set; }
-
-        [Required]
-        public int CardId { get; set; }
 
         [Required]
         public DateTime BirthDate { get; set; }
