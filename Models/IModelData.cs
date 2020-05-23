@@ -5,15 +5,8 @@ using System.Threading.Tasks;
 
 namespace StudiumTracker.Models
 {
-    public class Room : IModelData
+    public interface IModelData
     {
         public int Id { get; set; }
-
-        public string Location { get; set; }
-
-        public int NumberOfSeats { get; set; }
-
-        public bool SupportsProjector { get; set; }
-
     }
 }

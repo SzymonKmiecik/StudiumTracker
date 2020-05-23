@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudiumTracker.Models
 {
-    public class Lecturer
+    public class Lecturer : IModelData
     {
         public int  Id { get; set; }
 
