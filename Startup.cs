@@ -31,6 +31,7 @@ namespace StudiumTracker
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IDbManipulation<Student>, SqlDbManipulation<Student>>();
+            services.AddScoped<IDbManipulation<Lecturer>, SqlDbManipulation<Lecturer>>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("StudiumTrackerConnection")));
