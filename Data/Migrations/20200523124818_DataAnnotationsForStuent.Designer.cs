@@ -245,7 +245,7 @@ namespace StudiumTracker.Data.Migrations
                         .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25);
 
-                    b.Property<string>("Surename")
+                    b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);

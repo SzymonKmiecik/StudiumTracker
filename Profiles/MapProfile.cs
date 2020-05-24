@@ -15,10 +15,16 @@ namespace StudiumTracker.Profiles
             //Domain to Dto
             CreateMap<Student, StudentDto>();
             CreateMap<Lecturer, LecturerDto>();
+            CreateMap<Subject, SubjectDto>();
+            CreateMap<Room, RoomDto>();
+            CreateMap<Course, CourseDto>();
 
             //Dto to Domain
             CreateMap<StudentDto, Student>();
             CreateMap<LecturerDto, Lecturer>();
+            CreateMap<SubjectDto, Subject>();
+            CreateMap<RoomDto, Room>();
+            CreateMap<CourseDto, Course>();
         }
     }
 }

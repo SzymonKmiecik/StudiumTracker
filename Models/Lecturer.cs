@@ -21,7 +21,7 @@ namespace StudiumTracker.Models
 
         [Required]
         [MaxLength(25)]
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
         public int EmployeeId { get; set; }

@@ -4,12 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudiumTracker.Models
+namespace StudiumTracker.Dtos
 {
-    public class Subject : IModelData
+    public class SubjectDto
     {
-        [Key]
-        public int Id { get; set; }
+        public int Id { get; }
 
         [Required]
         public string Name { get; set; }

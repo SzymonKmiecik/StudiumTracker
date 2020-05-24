@@ -16,7 +16,7 @@ namespace StudiumTracker.Controllers
     public class LecturersController : ControllerBase
     {
         private readonly IDbManipulation<Lecturer> _repository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public LecturersController(IDbManipulation<Lecturer> repository, IMapper mapper)
         {
@@ -27,48 +27,48 @@ namespace StudiumTracker.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<LecturerDto>> GetAllLecturers()
         {
-            var LecturerItems = _repository.GetAll();
+            var lecturerItems = _repository.GetAll();
 
-            return Ok(_mapper.Map<IEnumerable<LecturerDto>>(LecturerItems));
+            return Ok(_mapper.Map<IEnumerable<LecturerDto>>(lecturerItems));
         }
 
 
         [HttpGet("{id}", Name = "GetLecturerById")]
         public ActionResult<Lecturer> GetLecturerById(int id)
         {
-            var LecturerItem = _repository.GetById(id);
-            if (LecturerItem != null)
-                return Ok(_mapper.Map<LecturerDto>(LecturerItem));
+            var lecturerItem = _repository.GetById(id);
+            if (lecturerItem != null)
+                return Ok(_mapper.Map<LecturerDto>(lecturerItem));
             return NotFound();
         }
 
         [HttpPost]
-        public ActionResult<LecturerDto> CreateLecturer(LecturerDto LecturerDto)
+        public ActionResult<LecturerDto> CreateLecturer(LecturerDto lecturerDto)
         {
-            var LecturerModel = _mapper.Map<Lecturer>(LecturerDto);
-            Random rand = new Random();
-            LecturerModel.EmployeeId = rand.Next(100000, 1000000);
+            var lecturerModel = _mapper.Map<Lecturer>(lecturerDto);
+            var rand = new Random();
+            lecturerModel.EmployeeId = rand.Next(100000, 1000000);
 
-            //TODO Identity cardID
+            //TODO EmployeeId Identity
 
-            _repository.Create(LecturerModel);
+            _repository.Create(lecturerModel);
             _repository.SaveChanges();
 
-            var LecturerCreatedDto = _mapper.Map<LecturerDto>(LecturerModel);
+            var lecturerCreatedDto = _mapper.Map<LecturerDto>(lecturerModel);
 
-            return CreatedAtRoute(nameof(GetLecturerById), new { Id = LecturerModel.Id }, LecturerCreatedDto);
+            return CreatedAtRoute(nameof(GetLecturerById), new { Id = lecturerModel.Id }, lecturerCreatedDto);
         }
 
         [HttpPut("{id}")]
-        public ActionResult UptadeLecturer(int id, LecturerDto LecturerDto)
+        public ActionResult UpdateLecturer(int id, LecturerDto lecturerDto)
         {
-            var LecturerModelFromRepo = _repository.GetById(id);
-            if (LecturerModelFromRepo == null)
+            var lecturerModelFromRepo = _repository.GetById(id);
+            if (lecturerModelFromRepo == null)
                 return NotFound();
 
-            _mapper.Map(LecturerDto, LecturerModelFromRepo);
-            LecturerModelFromRepo.Id = id;
-            _repository.Update(LecturerModelFromRepo);
+            _mapper.Map(lecturerDto, lecturerModelFromRepo);
+            lecturerModelFromRepo.Id = id;
+            _repository.Update(lecturerModelFromRepo);
 
             _repository.SaveChanges();
 
@@ -79,11 +79,11 @@ namespace StudiumTracker.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteLecturer(int id)
         {
-            var LecturerModelFromRepo = _repository.GetById(id);
-            if (LecturerModelFromRepo == null)
+            var lecturerModelFromRepo = _repository.GetById(id);
+            if (lecturerModelFromRepo == null)
                 return NotFound();
 
-            _repository.Delete(LecturerModelFromRepo);
+            _repository.Delete(lecturerModelFromRepo);
             _repository.SaveChanges();
 
             return NoContent();

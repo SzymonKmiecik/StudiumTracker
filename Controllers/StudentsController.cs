@@ -16,7 +16,7 @@ namespace StudiumTracker.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IDbManipulation<Student> _repository;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public StudentsController(IDbManipulation<Student> repository, IMapper mapper)
         {
@@ -46,7 +46,7 @@ namespace StudiumTracker.Controllers
         public ActionResult<StudentDto> CreateStudent(StudentDto studentDto)
         {
             var studentModel = _mapper.Map<Student>(studentDto);
-            Random rand = new Random();
+            var rand = new Random();
             studentModel.CardId = rand.Next(100000, 1000000);
 
             //TODO Identity cardID
@@ -60,7 +60,7 @@ namespace StudiumTracker.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UptadeStudent(int id, StudentDto studentDto)
+        public ActionResult UpdateStudent(int id, StudentDto studentDto)
         {
             var studentModelFromRepo = _repository.GetById(id);
             if (studentModelFromRepo == null)

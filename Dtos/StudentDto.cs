@@ -19,7 +19,7 @@ namespace StudiumTracker.Dtos
 
         [Required]
         [MaxLength(250)]
-        public string Surename { get; set; }
+        public string Surname { get; set; }
 
         [Required]
         [MaxLength(25)]

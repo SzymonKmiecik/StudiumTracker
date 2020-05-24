@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace StudiumTracker.Models
 
         [Required]
         [MaxLength(250)]
-        public string Surename { get; set; }
+        public string Surname { get; set; }
 
         [Required]
         [MaxLength(25)]
@@ -28,6 +29,8 @@ namespace StudiumTracker.Models
 
         [Required]
         public DateTime BirthDate { get; set; }
+
+        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
 
     }
 }

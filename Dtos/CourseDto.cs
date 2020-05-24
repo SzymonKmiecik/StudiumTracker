@@ -4,32 +4,26 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using StudiumTracker.Models;
 
-namespace StudiumTracker.Models
+namespace StudiumTracker.Dtos
 {
-    public class Course : IModelData
+    public class CourseDto
     {
-        public int Id { get; set; }
+        public int Id { get; }
 
         public int LecturerId { get; set; }
-        [Required]
-        public Lecturer Lecturer { get; set; }
 
         public int RoomId { get; set; }
-        [Required]
-        public virtual Room Room { get; set; }
+
+        //public virtual ICollection<Student> Student { get; set; }
 
         public int SubjectId { get; set; }
-        [Required]
-        public virtual Subject Subject { get; set; }
 
-        [Required] 
+        [Required]
         public DayOfWeek DayTakingPlace { get; set; }
 
         [Required]
         public TimeSpan StartingTime { get; set; }
-
-        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
-
     }
 }

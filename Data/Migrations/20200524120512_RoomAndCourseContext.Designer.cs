@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudiumTracker.Data;
 
 namespace StudiumTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200524120512_RoomAndCourseContext")]
+    partial class RoomAndCourseContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,6 +320,9 @@ namespace StudiumTracker.Data.Migrations
                     b.Property<int>("CardId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Forename")
                         .IsRequired()
                         .HasColumnType("nvarchar(250)")
@@ -335,22 +340,9 @@ namespace StudiumTracker.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("StudiumTracker.Models.StudentCourse", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "CourseId");
-
                     b.HasIndex("CourseId");
 
-                    b.ToTable("StudentCourses");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("StudiumTracker.Models.Subject", b =>
@@ -444,19 +436,11 @@ namespace StudiumTracker.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudiumTracker.Models.StudentCourse", b =>
+            modelBuilder.Entity("StudiumTracker.Models.Student", b =>
                 {
-                    b.HasOne("StudiumTracker.Models.Course", "Course")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudiumTracker.Models.Student", "Student")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("StudiumTracker.Models.Course", null)
+                        .WithMany("Student")
+                        .HasForeignKey("CourseId");
                 });
 #pragma warning restore 612, 618
         }

@@ -32,9 +32,15 @@ namespace StudiumTracker
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IDbManipulation<Student>, SqlDbManipulation<Student>>();
             services.AddScoped<IDbManipulation<Lecturer>, SqlDbManipulation<Lecturer>>();
+            services.AddScoped<IDbManipulation<Subject>, SqlDbManipulation<Subject>>();
+            services.AddScoped<IDbManipulation<Room>, SqlDbManipulation<Room>>();
+            services.AddScoped<IDbManipulation<Course>, SqlDbManipulation<Course>>();
+            services.AddScoped<IDbManipulation<StudentCourse>, SqlDbManipulation<StudentCourse>>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("StudiumTrackerConnection")));
+            services.AddTransient<ApplicationDbContext>();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

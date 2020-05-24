@@ -7,7 +7,7 @@ namespace StudiumTracker.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Surename",
+                name: "Surname",
                 table: "Students",
                 maxLength: 250,
                 nullable: false,
@@ -37,7 +37,7 @@ namespace StudiumTracker.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Surename",
+                name: "Surname",
                 table: "Students",
                 type: "nvarchar(max)",
                 nullable: true,

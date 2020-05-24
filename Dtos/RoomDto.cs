@@ -6,20 +6,18 @@ using System.Threading.Tasks;
 
 namespace StudiumTracker.Dtos
 {
-    public class LecturerDto
+    public class RoomDto
     {
-        public int Id { get; set; }
+        public int Id { get; }
 
         [Required]
         [MaxLength(250)]
-        public string Forename { get; set; }
+        public string Location { get; set; }
 
         [Required]
-        [MaxLength(250)]
-        public string Surname { get; set; }
+        public int NumberOfSeats { get; set; }
 
         [Required]
-        [MaxLength(25)]
-        public string PhoneNumber { get; set; }
+        public bool SupportsProjector { get; set; }
     }
 }
