@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StudiumTracker.Models;
 
-namespace StudiumTracker.Controllers
+namespace StudiumTracker.Controllers.Api
 {
     public class HomeController : Controller
     {
@@ -18,6 +14,7 @@ namespace StudiumTracker.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public IActionResult Index()
         {
             return View();

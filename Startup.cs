@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudiumTracker.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using StudiumTracker.Models;
 
 namespace StudiumTracker
@@ -37,8 +39,10 @@ namespace StudiumTracker
             services.AddScoped<IDbManipulation<Course>, SqlDbManipulation<Course>>();
             services.AddScoped<IDbManipulation<StudentCourse>, SqlDbManipulation<StudentCourse>>();
 
+
+            //services.AddMvc().AddXmlSerializerFormatters().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                    options.UseSqlServer(
                     Configuration.GetConnectionString("StudiumTrackerConnection")));
             services.AddTransient<ApplicationDbContext>();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

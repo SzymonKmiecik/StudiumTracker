@@ -1,0 +1,68 @@
+﻿@model StudiumTracker.Models.StudentCourse
+
+@*@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    string antiForgeryToken = Xsrf.GetAndStoreTokens(Context).RequestToken;
+}*@
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<h4>StudentCourse</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">
+        @using (@Html.BeginForm("Index", "StudentCourses",Json ,FormMethod.Post))
+        {
+
+
+
+        }
+
+
+
+    </div>
+
+</div>*@
+<div>
+    @Html.LabelFor(x => x.CourseId)
+    @Html.TextBoxFor(x => x.CourseId, new {@id = "cid"})<br/>
+    @Html.LabelFor(x => x.StudentId)
+    @Html.TextBoxFor(x => x.StudentId, new {@id = "sid"})<br/>
+
+    <button id="submit" class="btn">Create</button>
+</div>
+
+
+@section Scripts
+{
+    <script lang="javascript" type="text/javascript">
+        $(document).ready(function () {
+
+            $("#submit").on('click',
+                function () {
+
+                    var data = {
+                        courseId: $("#cid").val(),
+                        studentId: $("#sid").val()
+                        //studentId: 1,
+                        //courseId: 1
+                    };
+                    //$('#t').text("Book Name: " + $("#name").val());
+                    $.ajax({
+                        url: '@Url.Action("Index", "StudentCourses")',
+                        dataType: "json",
+                        method: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    });
+                });
+        });
+    </script>
+}

@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StudiumTracker.Models
 {
     public class StudentCourse : IModelData
     {
+
         public int StudentId { get; set; }
         public Student Student { get; set; }
 

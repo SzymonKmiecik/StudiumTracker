@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudiumTracker.Data;
 using StudiumTracker.Dtos;
 using StudiumTracker.Models;
 
-namespace StudiumTracker.Controllers
+namespace StudiumTracker.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
